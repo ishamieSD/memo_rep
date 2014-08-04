@@ -38,7 +38,7 @@ else
     save_dir = varargin{3};
 end
 
-values = data.trial{1}(chans,:);   % this was all of the good channels
+values = data.trial{1}(chans,:);        % this is all of the good channels
 
 totalTimeSamples = length(values(1,:)); % this is needed for later, when averaging over every 30 seconds
 fsample = data.fsample;
@@ -62,7 +62,7 @@ HGP_phase = angle(hgp);
 % [HGP_Zscore, HGP_mean, HGP_stDev] = zscore(HGP_envelope,0,2);
 [HGP_Zscore, ~, ~] = zscore(HGP_envelope,0,2);
 
-disp('got hgp zscore')
+disp('Extracted HGP zscore')
 
 
 save(save_dir, '*Zscore','*phase', '*envelope', '-v7.3');
