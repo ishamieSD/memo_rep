@@ -12,7 +12,8 @@ function [data_for_kmeans] =  kMeansFormat(name, varargin)
 
 % convert all the wave form bins into one long nXp matrix where n is num
 % instances of time windows and p is 3 bandpassed wavesX 3 moments
-% (mean var skew) X numChannels channels 
+% (mean var skew) X numChannels channels, so that the output becomes ready
+% for k-means clustering
 
 
 %% set up prerequisites
