@@ -20,15 +20,15 @@ function [] = powerFeatures_v3(data_file,bin_size,varargin)
 
 data = load(data_file);
 
-if nargin < 2
+if nargin < 3
     chans = 1:length(data.label);
     butFilterOrder = 4;
     save_dir = '/home/ishamie/Desktop/projects/24_7/NY442/442_day4_bpFeatures.mat';
-elseif nargin < 3
+elseif nargin < 4
     chans = varargin{1};
     butFilterOrder = 4;
     save_dir = '/home/ishamie/Desktop/projects/24_7/NY442/442_day4_bpFeatures.mat';
-elseif nargin < 4
+elseif nargin < 5
     chans = varargin{1};
     butFilterOrder = varargin{2};
     save_dir = '/home/ishamie/Desktop/projects/24_7/NY442/442_day4_bpFeatures.mat';
