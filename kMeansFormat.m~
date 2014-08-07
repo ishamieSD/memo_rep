@@ -5,10 +5,10 @@ function [data_for_kmeans] =  kMeansFormat(name, varargin)
 %name = file name, don't end it with .mat, it will be added automatically. file will be saved as kmeans_format_'name'.mat. example: HGP_alpha or alpha_theta_LFP
 %varargin = [[binned data], w_type, path] where w_type is true or false whether a text
 %file is desired or not. default = false. path = path to save data, do not
-%include the file name, just the path, and end with /. example =/space/mdeh4/1/halgdev/projects/ishamie/   
-%required is the binned data which is a column vector that contains structs that contain the
+%include the file name, just the path, and end with /. default is current directory. example =/space/mdeh4/1/halgdev/projects/ishamie/   
+%Required in workspace: binned data which is a column vector that contains structs that contain the
 %binned waveforms. example: [HGPBinned] or [HGPBinned; alphaBinned] . these
-%structs must contain mean, variance, and skewness
+%structs must contain fields named after features, such as "mean", "variance", and "skewness"
 
 %convert all the wave form bins into one long nXp matrix where n is num
 %instances of time windows and p is 3 bandpassed wavesX 3 moments
@@ -45,11 +45,11 @@ for i = 1:n
     end 
 end
 
-%/space/mdeh4/1/halgdev/projects/ishamie/
-
-file = strcat(path, 'kmeans_format_', name, '.mat')
+%save to a .mat file
+file = strcat(path, 'kmeans_format_', name, '.mat');
 save(file,'data_for_kmeans');
 
+%save to a .txt file if w_type == true
 if w_type == true
     txtFile = strcat(path, 'kmeans_format_', name, '.txt');
     dlmwrite(txtFile, data_for_kmeans);
