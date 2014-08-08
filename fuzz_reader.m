@@ -2,7 +2,9 @@
 %
 % Created by Xi Jiang, Aug. 1st, 2014
 %
-% Last edited by Xi Jiang, Aug. 5th, 2014
+% Last edited by Xi Jiang, Aug. 8th, 2014
+%
+% Dependences: N/A
 
 function [cluster,membership] = fuzz_reader
     

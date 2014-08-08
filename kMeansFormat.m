@@ -1,6 +1,10 @@
 
 function [data_for_kmeans] =  kMeansFormat(name, varargin)
-%created by ishamie in July, 2014
+% Created by Isaac Shamie in July, 2014
+%
+% Last edited by Xi Jiang, Aug.8th, 2014
+%
+% Dependencies: N/A
 
 % name = file name, don't end it with .mat, it will be added automatically. file will be saved as kmeans_format_'name'.mat. example: HGP_alpha or alpha_theta_LFP
 % varargin = [[binned data], w_type, path] where w_type is true or false whether a text

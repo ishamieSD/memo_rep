@@ -5,8 +5,11 @@ function [data, match_dur] = align_rest_clin12(params, data)
 % Created by XJ on 07/21/2014
 % Right now can only handle clin1&2 with only one data file (no parts)
 
-% Edited by Xi Jiang, Aug. 6th, 2014 (commented out faulty trigger
+% Last edited by Xi Jiang, Aug. 6th, 2014 (commented out faulty trigger
 % comparison segment)
+%
+% Dependencies: N/A
+
 % In order to use this script for continuous data, triggers need to be
 % obtained from the modified kb_trig_mult_XJ_edit function
 
@@ -150,7 +153,7 @@ end
 
 %% Extract the overlapping portions of the data from clin1&2
 
-diff_totlen = length(match_dur(1,1):match_dur(1,2)) - length(match_dur(2,1):match_dur(2,2)) 
+diff_totlen = length(match_dur(1,1):match_dur(1,2)) - length(match_dur(2,1):match_dur(2,2)); 
 % There could be a difference because not all the inter-trigger intervals 
 % are exactly the same between clin1&2. This number should be quite small 
 % as there shouldn't be a cumulative effect across multiple triggers

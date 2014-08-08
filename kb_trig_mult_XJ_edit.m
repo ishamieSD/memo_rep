@@ -5,8 +5,10 @@ function triggers = kb_trig_mult_XJ_edit(params)
 % XJ modified 07/14/14, can now detect 255 triggers - in principle any trigger codes
 % XJ modified 07/23/14, can now also be used to check if the rest-period data have been correctly aligned
 %
-% Edited by Xi Jiang, Aug. 6th, 2014 (changed match_dur to be the minimun
+% Last edited by Xi Jiang, Aug. 8th, 2014 (changed match_dur to be the minimun
 % of the pulse channel data lengths)
+%
+% Dependency: ft_preprocessing.m
 
 cfg = [];
 cfg.continuous = 'yes';

@@ -1,8 +1,10 @@
 
 function [] = powerFeatures_v3(data_file,bin_size,varargin)
 % Created by Isaac Shamie, Jul. 2014
-
-% Edited by Xi Jiang, Jul.30th, 2014
+%
+% Last edited by Xi Jiang, Aug. 8th, 2014
+%
+% Dependency: ft_preproc_bandpassfilter.m
 
 % data_file: .mat file directory; the file contains only a structure variable (e.g. output of ft_preprocessing)
 % bin_size: duration (in seconds) of time bins in which features are calculated
