@@ -1,6 +1,9 @@
 % reorganizes the output of align_rest_clin12.m into one fieldtrip struct
 %
 % Created by Xi Jiang, Aug. 6th, 2014
+% Last edited by Xi Jiang, Aug. 8th, 2014
+%
+% Dependencies: N/A
 
 function data_comb = clin_superglue(data)
    
