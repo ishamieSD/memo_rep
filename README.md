@@ -1,7 +1,6 @@
 memo_rep
 ========
 
-We hope to make this repo a source for analysis scripts. For now, this will be used to analyze iEEG data. 
-For example, one script can be used to extract certain bandpass power from the data, and transform the data into standardize values (z-score).
+We hope to make this repo a source for electrophysiological recording analysis scripts. Currently, only iEEG data analysis scripts are present, and they rely heavily on Fieldtrip functions and other external scripts. It is desirable, however, that the scripts would eventually become self-contained and widely applicable.
 
-Can also be used to analyze certain tasks, such as the Zoolander task and continuous data sets.
+Due to the nature of the memory replay project, however, there will be specialized scripts (e.g. alignment script for clin1 and clin2 data of NYU continuous ECoG recordings) uploaded here, in order to facilitate exchange. It is also likely that, given the potential copyright issues, this repository will be made private (i.e. restricted access to contributors only) in the near future.
