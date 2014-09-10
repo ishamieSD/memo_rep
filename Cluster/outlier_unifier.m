@@ -3,7 +3,7 @@
 % time bin centers.
 %
 % Created by Xi Jiang, Sept. 5th, 2014
-% Last edited by Xi Jiang, Sept. 9th, 2014
+% Last edited by Xi Jiang, Sept. 10th, 2014
 %
 % Dependencies: outlier_wavedecompC.m
 %
@@ -18,6 +18,8 @@
 %  new_starts: starting point indices (in terms of raw data) for clean time
 %              bins
 %  new_ends: similar to the above, except containing end points instead
+%  good_peaks: indices of HGP peak outliers in each channel that happen to
+%              fall into one of the new time bins 
 %        
 % Inputs:
 %  data_out: one of the outputs of outlier_cleaning.m, with required field
@@ -30,19 +32,21 @@
 %           -wavthresh: threshold (in z-score) for artifact detection
 %
 
-function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
+function [good_bins,bad_bins,new_bins,new_starts,new_ends,good_peaks] = ...
             outlier_unifier(data_out,data_raw,methods)
 %% locate well-spaced HGP peak outliers
     
     step = methods.sfreq * methods.time_bin;
     test = data_out.newPOI;
     binarypeaks = zeros(size(data_raw));
+    chan_num = size(data_raw,1);            % number of channels
+    data_size = length(data_raw);           % number of sampling points
 
 % set distance for centering, i.e. anything within the separation will be 
 % included in the new time bins, which will be centered around peaks that
 % are sufficiently far apart
 
-    for i = 1:size(data_raw,1)
+    for i = 1:chan_num
         test_dist = [Inf diff(test{i})];
         test{i} = test{i}(test_dist > step);
         binarypeaks(i,test{i}) = 1;
@@ -57,8 +61,8 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
     
 %% preassign space for outputs and obtain time bin indices
 
-    good_bins = zeros(size(data_raw,1),length(test_ind));
-    bad_bins = zeros(size(data_raw,1),length(test_ind));
+    good_bins = zeros(chan_num,length(test_ind));
+    bad_bins = zeros(chan_num,length(test_ind));
     new_bins.start = [];
     new_bins.end = [];
     
@@ -67,9 +71,9 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
         if test_ind(j) <= methods.sfreq-1
             new_bins.start = horzcat(new_bins.start,1);
             new_bins.end = horzcat(new_bins.end,step);
-        elseif test_ind(j) > length(data_out.smoothed)-methods.sfreq
-            new_bins.start = horzcat(new_bins.start,length(data_raw)-(step-1));
-            new_bins.end = horzcat(new_bins.end,length(data_raw));
+        elseif test_ind(j) > data_size-methods.sfreq
+            new_bins.start = horzcat(new_bins.start,data_size-(step-1));
+            new_bins.end = horzcat(new_bins.end,data_size);
         else
             new_bins.start = horzcat(new_bins.start,test_ind(j)-(round(step/2)-1));
             new_bins.end = horzcat(new_bins.end,test_ind(j)+round(step/2));
@@ -79,7 +83,7 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
     
 %% remove artifact bins
 
-    for i = 1:size(data_raw,1)
+    for i = 1:chan_num
 
         num_bins = length(test_ind);       % number of bins
         bins_LFP = cell(1,num_bins);
@@ -91,11 +95,11 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
                 bins_LFP{j} = data_raw(i,1:step);
                 new_bins.start = horzcat(new_bins.start,1);
                 new_bins.end = horzcat(new_bins.end,step);
-            elseif test_ind(j) > length(data_out.smoothed)-methods.sfreq
+            elseif test_ind(j) > data_size-methods.sfreq
                 bins_LFP{j} = data_raw(i,...
-                    length(data_raw)-(step-1):length(data_raw));
-                new_bins.start = horzcat(new_bins.start,length(data_raw)-(step-1));
-                new_bins.end = horzcat(new_bins.end,length(data_raw));
+                    data_size-(step-1):data_size);
+                new_bins.start = horzcat(new_bins.start,data_size-(step-1));
+                new_bins.end = horzcat(new_bins.end,data_size);
             else
                 bins_LFP{j} = data_raw(i,...
                     (test_ind(j)-(round(step/2)-1)):test_ind(j)+round(step/2));
@@ -126,8 +130,34 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends] = ...
     
     % obtain start/end indices of "clean" time bins
     good_cumulative = sum(good_bins,1);
-    good_ind = good_cumulative == size(data_raw,1);
+    good_ind = good_cumulative == chan_num;
     new_starts = new_bins.start(good_ind);
     new_ends = new_bins.end(good_ind);
+    
+    clear data_raw
+    
+%% obtain HGP peak indices that lie within the good bins
+
+    % represet locations of all HGP peak outliers
+    all_binary_peaks = zeros(chan_num,data_size);
+    for i = 1:chan_num
+        all_binary_peaks(i,data_out.newPOI{i}) = 1;
+    end
+    
+    % represent locations of newly made time bins
+    binary_bins = zeros(1,data_size);
+    for i = 1:length(new_starts)
+        binary_bins(new_starts(i):new_ends(i)) = 1;
+    end
+    
+    % after addition of binary indices, '2's represent the indices where
+    % HGP peak lands in one of the good bins
+    all_binary_peaks = all_binary_peaks + repmat(binary_bins,chan_num,1);
+
+    good_peaks = cell(chan_num,1);
+    for i = 1:chan_num
+        good_peaks{i} = find(all_binary_peaks(i,:) == 2);
+    end
+    
     
 end
