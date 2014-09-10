@@ -4,7 +4,10 @@
 %
 % Last edited by Xi Jiang, Aug. 8th, 2014
 %
-% Dependences: N/A    
+% Dependences: N/A
+
+function [cluster,membership] = fuzz_reader
+    
 % cluster: hard-cluster results for all time bins (N cells of n by 2
 %   matrices, N being the number of clustering runs, n being the number of 
 %   time bins)
@@ -14,8 +17,6 @@
 %   in a given run
 % ALSO REQUIRED: have files named 'fuzz_cluster' and 'fuzz_membership'
 %   under the working directory
-
-function [cluster,membership] = fuzz_reader
 
 %% Opening files and loading data
 

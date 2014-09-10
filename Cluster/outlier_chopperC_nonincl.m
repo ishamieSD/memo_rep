@@ -4,10 +4,7 @@
 % Created by Xi Jiang, Sept. 5th, 2014
 %
 % Dependencies: outlier_wavedecompC.m
-
-function [good_bins,bad_bins,data_LFP,data_HGP,new_bins] = ...
-            outlier_chopperC_nonincl(data_out,data_raw,methods)
-
+%
 % Outputs:
 %  good_bins: logical indices of (allegedly) artifact-free time bins, with
 %             respect to the elements in all_bins_seq
@@ -36,6 +33,9 @@ function [good_bins,bad_bins,data_LFP,data_HGP,new_bins] = ...
 %
 
 
+function [good_bins,bad_bins,data_LFP,data_HGP,new_bins] = ...
+            outlier_chopperC_nonincl(data_out,data_raw,methods)
+        
     % preassign space for outputs
     good_bins = cell(size(data_out.newPOI,1),1);
     bad_bins = cell(size(data_out.newPOI,1),1);
@@ -43,6 +43,10 @@ function [good_bins,bad_bins,data_LFP,data_HGP,new_bins] = ...
     data_HGP = cell(size(data_out.newPOI,1),1);
     new_bins.start = cell(size(data_out.newPOI,1),1);
     new_bins.end = cell(size(data_out.newPOI,1),1);
+    
+    if ~isfield(methods,'time_bin')
+        methods.time_bin = 2;
+    end
 
     for i = 1:size(data_out.newPOI,1)
 
