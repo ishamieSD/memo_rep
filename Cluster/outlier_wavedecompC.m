@@ -85,7 +85,7 @@ function [good_bin_ind,bad_bin_ind] = outlier_wavedecompC(all_bins_LFP,methods)
 %     bad_bin_ind = bad_bin_ind_db4.*bad_bin_ind_haar;
 
     % combine indices
-    good_bin_ind = good_bin_ind_db4+good_bin_ind_haar;
+    good_bin_ind = good_bin_ind_db4.*good_bin_ind_haar;
     bad_bin_ind = bad_bin_ind_db4+bad_bin_ind_haar;    
 
     good_bin_ind = logical(good_bin_ind);
