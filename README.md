@@ -7,10 +7,12 @@ Due to the nature of the memory replay project, however, there will be specializ
 
 ## Notes for specific functions
 
-outlier\_chopperC\_nonincl: two of the inputs needed, "data\_out" and "data\_raw", can be obtained from the following files (for NY394 specifically):
+### outlier\_chopperC\_nonincl: 
+Two of the inputs needed, "data\_out" and "data\_raw", can be obtained from the following files (for NY394 specifically):
 - data\_out: /space/mdeh4/1/halgdev/projects/xjiang/data\_rep/NY\_EEG/NY394/NY394\_D4\_morn\_clin1\_HGPsmoothed.mat
 - data\_raw: /space/mdeh4/1/halgdev/projects/xjiang/data\_rep/NY\_EEG/NY394/NY394\_D4\_morn\_clin1\_raw\_matrix.mat
  
-outlier\_unifier: similar to the function above, two of the inputs needed can be found in the above paths. "unifier" also outputs a 61x1 cell containing HGP peak outlier indices for peaks that occur within clean time bins.
+### outlier\_unifier: 
+Similar to the function above, two of the inputs needed can be found in the above paths. "unifier" also outputs a 61x1 cell containing HGP peak outlier indices for peaks that occur within clean time bins.
 
 NY394 good channel labels are also in the above folder.
