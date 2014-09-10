@@ -1,3 +1,5 @@
+function triggers = kb_trig_mult_XJ_edit(params)
+
 %% Find triggers in multiple files
 % Xiaojing did minor editing to make it more readable to her
 % XJ modified 07/14/14, can now detect 255 triggers - in principle any trigger codes
@@ -7,8 +9,6 @@
 % of the pulse channel data lengths)
 %
 % Dependency: ft_preprocessing.m
-
-function triggers = kb_trig_mult_XJ_edit(params)
 
 cfg = [];
 cfg.continuous = 'yes';

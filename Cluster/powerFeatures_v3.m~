@@ -1,3 +1,5 @@
+
+function [] = powerFeatures_v3(data_file,bin_size,varargin)
 % Created by Isaac Shamie, Jul. 2014
 %
 % Last edited by Xi Jiang, Aug. 8th, 2014
@@ -15,8 +17,6 @@
 % such as calculating z-scores
 
 % Extract multiple features from the dataset    
-
-function [] = powerFeatures_v3(data_file,bin_size,varargin)
 
 %% Set up prerequisites
 

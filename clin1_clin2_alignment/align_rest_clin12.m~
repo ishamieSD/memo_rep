@@ -1,3 +1,7 @@
+
+
+function [data, match_dur] = align_rest_clin12(params, data)
+
 % Created by XJ on 07/21/2014
 % Right now can only handle clin1&2 with only one data file (no parts)
 
@@ -17,8 +21,6 @@
 %   params: a structure containing the fields "my_trl" and "clinsys"
 %   "clinsys": [1 2] or [2 1], representing order of clin1/2 files
 %   "my_trl": output from kb_trig_mult_XJ_edit.m
-
-function [data, match_dur] = align_rest_clin12(params, data)
 
 triggers = {};
 trig_len = [];

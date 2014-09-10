@@ -4,9 +4,10 @@
 % Last edited by Xi Jiang, Aug. 8th, 2014
 %
 % Dependencies: N/A
-% data: 1x2 cell with two aligned fieldtrip structures
 
-function data_comb = clin_superglue(data)   
+function data_comb = clin_superglue(data)
+   
+% data: 1x2 cell with two aligned fieldtrip structures
     
     % concatenating and re-arranging channel labels while removing 
     % duplicates and preserving the indices of re-arranged channels in 

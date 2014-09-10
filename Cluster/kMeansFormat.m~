@@ -1,3 +1,5 @@
+
+function [data_for_kmeans] =  kMeansFormat(name, varargin)
 % Created by Isaac Shamie in July, 2014
 %
 % Last edited by Xi Jiang, Aug.8th, 2014
@@ -17,7 +19,6 @@
 % (mean var skew) X numChannels channels, so that the output becomes ready
 % for k-means clustering
 
-function [data_for_kmeans] =  kMeansFormat(name, varargin)
 
 %% set up prerequisites
 if nargin < 3 

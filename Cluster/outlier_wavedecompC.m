@@ -5,9 +5,7 @@
 % !May be merged with outlier_cleaning after performance tests
 %
 % Dependency: N/A
-
-function [good_bin_ind,bad_bin_ind] = outlier_wavedecompC(all_bins_LFP,methods)
-
+%
 % data_LFP:    binned raw data (LFP)
 % chan:        numerical, denoting the channel being used for decomposition
 % methods:     structure that contains at least the following:
@@ -18,6 +16,7 @@ function [good_bin_ind,bad_bin_ind] = outlier_wavedecompC(all_bins_LFP,methods)
 %              -haar_only: can take values 0/1 (yes/no)
 %              -db4_only: similar to the field above
 
+function [good_bin_ind,bad_bin_ind] = outlier_wavedecompC(all_bins_LFP,methods)
 %% obtain LFP bins corresponding to the HGP peak outliers
 
     num_bins = size(all_bins_LFP,1);
@@ -86,7 +85,7 @@ function [good_bin_ind,bad_bin_ind] = outlier_wavedecompC(all_bins_LFP,methods)
 %     bad_bin_ind = bad_bin_ind_db4.*bad_bin_ind_haar;
 
     % combine indices
-    good_bin_ind = good_bin_ind_db4+good_bin_ind_haar;
+    good_bin_ind = good_bin_ind_db4.*good_bin_ind_haar;
     bad_bin_ind = bad_bin_ind_db4+bad_bin_ind_haar;    
 
     good_bin_ind = logical(good_bin_ind);
