@@ -30,6 +30,9 @@
 %           -time_bin: integer representing size of time bins, in seconds
 %           -sfreq: sampling frequency (in Hz)
 %           -wavthresh: threshold (in z-score) for artifact detection
+%           Optionally:
+%           -savedir: string path of directory for saving outputs AND 
+%                     filename, e.g. '/home/test/output.mat'
 %
 
 function [good_bins,bad_bins,new_bins,new_starts,new_ends,good_peaks] = ...
@@ -118,11 +121,6 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends,good_peaks] = ...
         
         good_bins(i,:) = good_bin_ind;
         bad_bins(i,:) = bad_bin_ind;
-
-
-        if any(new_bins.start{i}-new_bins.end{i} >= 0)
-            disp('ERROR!')
-        end
         
         disp([num2str(i) ' channel(s) processed!'])
     
@@ -133,8 +131,6 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends,good_peaks] = ...
     good_ind = good_cumulative == chan_num;
     new_starts = new_bins.start(good_ind);
     new_ends = new_bins.end(good_ind);
-    
-    clear data_raw
     
 %% obtain HGP peak indices that lie within the good bins
 
@@ -157,6 +153,13 @@ function [good_bins,bad_bins,new_bins,new_starts,new_ends,good_peaks] = ...
     good_peaks = cell(chan_num,1);
     for i = 1:chan_num
         good_peaks{i} = find(all_binary_peaks(i,:) == 2);
+    end
+    
+%% save outputs, if desired
+
+    if isfield(methods,'savedir')
+        save(methods.savedir,'good_bins','bad_bins','new_bins',...
+                            'new_starts','new_ends','good_peaks')
     end
     
     
